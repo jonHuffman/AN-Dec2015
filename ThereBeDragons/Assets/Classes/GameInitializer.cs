@@ -60,7 +60,8 @@ namespace TBD
     /// </summary>
     private void RegisterViews()
     {
-      throw new System.NotImplementedException();
+      AppHub.viewManager.RegisterView(View.Start, Layer.Main, "Views/StartView");
+      AppHub.viewManager.RegisterView(View.UI, Layer.Main, "Views/UIView");
     }
 
     /// <summary>
@@ -68,6 +69,8 @@ namespace TBD
     /// </summary>
     private void StartGame()
     {
+      AppHub.viewManager.AddView(View.Start);
+
       AppHub.viewManager.ChangeScene(Scenes.Game);
     }
   }
