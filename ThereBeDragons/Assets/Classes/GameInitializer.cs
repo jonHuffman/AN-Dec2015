@@ -75,7 +75,9 @@ namespace TBD
     /// </summary>
     private void InitializeEventManager()
     {
-      AppHub.SetEventManager(new EventManager());
+      EventManager eventManager = new EventManager();
+      eventManager.SetDebugMethods(Debug.Log, Debug.LogWarning, Debug.LogError);
+      AppHub.SetEventManager(eventManager);
     }
     #endregion
 
