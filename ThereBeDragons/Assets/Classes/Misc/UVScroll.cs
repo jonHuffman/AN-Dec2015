@@ -2,6 +2,9 @@
 
 namespace TBD
 {
+  /// <summary>
+  /// A simple script that manipulates the UVs of the texture that is managed by the GameObject's attached renderer. Only manipulates the Main Texture
+  /// </summary>
   [RequireComponent(typeof(Renderer))]
   public class UVScroll : MonoBehaviour
   {

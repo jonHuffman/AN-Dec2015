@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.Module.EventManager;
 using Core.Module.ViewManagerSystem;
 using DG.Tweening;
 using TBD.Views;
@@ -19,8 +20,10 @@ namespace TBD
       DOTween.Init(false, false, LogBehaviour.Default).SetCapacity(100, 20);
 
       InitializeViewManager();
+      InitializeEventManager();
     }
 
+    #region ViewManager
     /// <summary>
     /// Initializes the ViewManager and binds the necessary things for it to run.
     /// </summary>
@@ -63,6 +66,18 @@ namespace TBD
       AppHub.viewManager.RegisterView(View.Start, Layer.Main, "Views/StartView");
       AppHub.viewManager.RegisterView(View.UI, Layer.Main, "Views/UIView");
     }
+    #endregion
+
+    #region EventManager
+
+    /// <summary>
+    /// Initializes the EventManager
+    /// </summary>
+    private void InitializeEventManager()
+    {
+      AppHub.SetEventManager(new EventManager());
+    }
+    #endregion
 
     /// <summary>
     /// Start the game
