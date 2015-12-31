@@ -1,6 +1,7 @@
 ﻿using Core;
 using Core.Module.ViewManagerSystem;
 using DG.Tweening;
+using TBD.Events;
 using UnityEngine;
 
 namespace TBD.Views
@@ -23,6 +24,7 @@ namespace TBD.Views
       if(Input.GetKeyDown(KeyCode.Space))
       {
         AppHub.viewManager.AddView(View.UI);
+        AppHub.eventManager.Dispatch(GameEvent.StartGame);
       }
     }
 
