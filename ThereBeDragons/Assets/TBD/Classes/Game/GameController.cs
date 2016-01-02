@@ -46,6 +46,7 @@ namespace TBD
     #endregion
 
     private float _startTime;
+    private int _attempt = 0;
     private bool _gameRunning = false;
     private UIData _uiData;
 
@@ -86,7 +87,7 @@ namespace TBD
         }
 
         _uiData.time = Mathf.FloorToInt(Time.time - _startTime);
-        _uiData.attempt = 1;
+        _uiData.attempt = _attempt;
         AppHub.viewManager.UpdateView(View.UI, _uiData);
       }
     }
@@ -104,6 +105,7 @@ namespace TBD
       switch ((GameEvent)gameEvent)
       {
         case GameEvent.StartGame:
+          _attempt++;
           _startTime = Time.time;
           _gameRunning = true;
           GAME_SPEED = START_GAME_SPEED;

@@ -67,6 +67,12 @@ namespace TBD
           Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
           _gunHinge.transform.rotation = q;
         }
+        else
+        {
+          _firing = false;
+          _guide.enabled = false;
+          DOTween.Kill(_lockOnTweenID);
+        }
       }
 
       base.Update();

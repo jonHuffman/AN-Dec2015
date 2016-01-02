@@ -8,6 +8,8 @@ namespace TBD.Views
 {
   public class GameOverDialog : BaseView
   {
+    private const string BEST_TIME = "bestTime";
+
     [SerializeField]
     private Animator _animController;
     [SerializeField]
@@ -40,7 +42,17 @@ namespace TBD.Views
     {
       UIData uiData = (UIData)data;
 
+      //If there were more data to be saving I would write this out to a file and save it on device
+      int bestTime = PlayerPrefs.GetInt(BEST_TIME);
+
+      if(uiData.time > bestTime)
+      {
+        bestTime = uiData.time;
+        PlayerPrefs.SetInt(BEST_TIME, bestTime);
+      }
+
       _timeText.text = uiData.time.ToString();
+      _bestTimeText.text = bestTime.ToString();
     }
     #endregion
 
