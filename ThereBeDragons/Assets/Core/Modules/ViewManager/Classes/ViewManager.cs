@@ -265,8 +265,8 @@ namespace Core.Module.ViewManagerSystem
         if (_activeViews.ContainsKey(_registeredViews[ID].layerId))
         {
           IView view = _activeViews[_registeredViews[ID].layerId];
-
-          if (view != null && view.viewID == ID)
+          
+          if (view != null && view.viewID.CompareTo(ID) == 0)
           {
             view.UpdateView(data);
           }
