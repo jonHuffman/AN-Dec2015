@@ -30,7 +30,6 @@ namespace TBD
     private Transform _targetXPosition;
 
     private TransformData _resetPosition;
-    private Collider2D _collider;
     private Rigidbody2D _rigidBody;
     private float _screenTop;
     private float _screenBottom;
@@ -49,7 +48,6 @@ namespace TBD
       AppHub.eventManager.Register(this);
 
       _resetPosition = transform.GetData();
-      _collider = GetComponent<Collider2D>();
       _rigidBody = GetComponent<Rigidbody2D>();
 
       _rigidBody.isKinematic = true;

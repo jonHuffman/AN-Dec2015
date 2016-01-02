@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using Core;
 using Core.Module.EventManager;
 using TBD.Events;
-using Core;
+using UnityEngine;
 
 namespace TBD
 {
@@ -22,14 +21,15 @@ namespace TBD
     }
 
     [SerializeField]
-    private float _range = 1f;
+    protected float _range = 1f;
     [SerializeField]
-    private Vector2 _rangeCenter = Vector2.zero;
+    protected Vector2 _rangeCenter = Vector2.zero;
 
+    protected PlayerController _player;
     //The point along the X axis that the turret should destroy itself at
     private float _turretKillPoint;
     private Bounds _colliderBounds;
-    private Orientation _orientation = Orientation.Natural;
+    protected Orientation _orientation = Orientation.Natural;
 
     #region Properties
 
@@ -70,7 +70,7 @@ namespace TBD
 
     #region Unity
 
-    void Update()
+    protected virtual void Update()
     {
       if (transform.position.x < _turretKillPoint)
       {
@@ -99,7 +99,7 @@ namespace TBD
 
     #region IEVentObserver
     
-    public void OnNotify(System.IComparable gameEvent, object data)
+    public virtual void OnNotify(System.IComparable gameEvent, object data)
     {
       if((GameEvent)gameEvent == GameEvent.Restart)
       {
@@ -114,10 +114,11 @@ namespace TBD
     /// Initializes the turret, setting its position and the X value at which the turret should clean itself up
     /// </summary>
     /// <param name="minCamFrameX">The camera frame's minimum X</param>
-    public virtual void Init(float minSpawnY, float maxSpawnY, float minCamFrameX, float maxCamFrameX)
+    public virtual void Init(float minSpawnY, float maxSpawnY, float minCamFrameX, float maxCamFrameX, PlayerController player)
     {
       AppHub.eventManager.Register(this);
 
+      _player = player;
       _turretKillPoint = minCamFrameX - colliderBounds.extents.x;
 
       //Position turret
