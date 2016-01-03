@@ -613,13 +613,6 @@ namespace Core.Module.ViewManagerSystem
     /// <param name="sceneName">Name of hte scene we expected to be loaded.</param>
     private void OnSceneLoadComplete(string sceneName)
     {
-#if !UNITY_EDITOR && !LOAD_LOCAL
-      if (_loadedScene.ToLower() != sceneName.ToLower())
-      {
-        throw new System.Exception("Unity Scene's should only be loaded through the View Manager. Use AppHub.viewManager.ChangeScene(string)");
-      }
-#endif 
-
       _loadingScene = false;
 
       if (_onSceneLoadComplete != null)
