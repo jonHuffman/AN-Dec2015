@@ -1,5 +1,6 @@
 ﻿using Core;
 using Core.Module.EventManager;
+using Core.Module.SoundManagerSystem;
 using Core.Module.ViewManagerSystem;
 using DG.Tweening;
 using TBD.Views;
@@ -21,6 +22,7 @@ namespace TBD
 
       InitializeViewManager();
       InitializeEventManager();
+      InitializeSoundManager();
 
       StartGame();
     }
@@ -56,6 +58,7 @@ namespace TBD
 
       viewManager.NameLayer(Layer.Main, "Main");
       viewManager.NameLayer(Layer.Modal, "Modal");
+      viewManager.NameLayer(Layer.PersistentUI, "Persistent UI");
     }
 
     /// <summary>
@@ -66,6 +69,8 @@ namespace TBD
       AppHub.viewManager.RegisterView(View.Start, Layer.Main, "Views/StartView");
       AppHub.viewManager.RegisterView(View.UI, Layer.Main, "Views/UIView");
       AppHub.viewManager.RegisterView(View.GameOver, Layer.Modal, "Views/GameOverDialog");
+      AppHub.viewManager.RegisterView(View.PersistentUI, Layer.PersistentUI, "Views/PersistentUIView");
+      AppHub.viewManager.RegisterView(View.Credits, Layer.Modal, "Views/CreditsDialog");
     }
     #endregion
 
@@ -82,13 +87,30 @@ namespace TBD
     }
     #endregion
 
+    #region SoundManager
+
+    private void InitializeSoundManager()
+    {
+      BaseSoundManager soundManager = new GameObject().AddComponent<SoundManager>();
+      (soundManager as SoundManager).SetDebugMethods(Debug.Log, Debug.LogWarning, Debug.LogError);
+
+      soundManager.CreateLayer(SoundLayers.Music, false, 0.5f);
+      soundManager.CreateLayer(SoundLayers.SFX, true);
+
+      soundManager.Initialize();
+
+      AppHub.SetSoundManager(soundManager);
+    }
+    #endregion
+
     /// <summary>
     /// Start the game
     /// </summary>
     private void StartGame()
     {
+      AppHub.viewManager.AddView(View.PersistentUI);
       AppHub.viewManager.AddView(View.Start);
-
+      
       AppHub.viewManager.ChangeScene(Scenes.Game);
     }
   }

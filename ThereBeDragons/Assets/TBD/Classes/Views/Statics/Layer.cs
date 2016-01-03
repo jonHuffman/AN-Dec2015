@@ -3,6 +3,7 @@
   public enum Layer
   {
     Main,
-    Modal
+    Modal,
+    PersistentUI
   }
 }

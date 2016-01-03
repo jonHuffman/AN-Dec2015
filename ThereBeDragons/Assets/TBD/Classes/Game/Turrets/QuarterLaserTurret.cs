@@ -1,4 +1,5 @@
-﻿using Core.Utils;
+﻿using Core;
+using Core.Utils;
 using DG.Tweening;
 using TBD.Events;
 using UnityEngine;
@@ -114,6 +115,8 @@ namespace TBD
       GameObject blast = GameObject.Instantiate(_laserBlast);
       blast.transform.position = new Vector3(_gunHinge.transform.position.x, _gunHinge.transform.position.y, blast.transform.position.z);
       blast.transform.rotation = _gunHinge.transform.rotation;
+
+      AppHub.soundManager.PlaySoundOnLayer("LaserBlast", false, SoundLayers.SFX);
 
       //Multiply by 10 to guarantee it leave the screen
       Vector2 target = (_player.transform.position - _gunHinge.transform.position) * 10;

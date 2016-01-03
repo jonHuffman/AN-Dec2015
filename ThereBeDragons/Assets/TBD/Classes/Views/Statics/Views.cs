@@ -4,6 +4,8 @@
   {
     Start,
     UI,
-    GameOver
+    PersistentUI,
+    GameOver,
+    Credits
   }
 }

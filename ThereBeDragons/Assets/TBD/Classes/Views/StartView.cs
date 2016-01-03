@@ -13,16 +13,19 @@ namespace TBD.Views
     private float _fadeOutDuration = 0.5f;
 
     private CanvasGroup _group;
+    private bool _gameStarted = false;
 
     void Awake()
     {
       _group = GetComponent<CanvasGroup>();
+      AppHub.soundManager.PlaySoundOnLayer("MainMenu", true, SoundLayers.Music);
     }
 
     void Update()
     {
-      if(Input.GetKeyDown(KeyCode.Space))
+      if (Input.GetKeyDown(KeyCode.Space) && _gameStarted == false)
       {
+        _gameStarted = true;
         AppHub.viewManager.AddView(View.UI);
         AppHub.eventManager.Dispatch(GameEvent.StartGame);
       }

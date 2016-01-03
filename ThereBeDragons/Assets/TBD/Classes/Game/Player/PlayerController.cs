@@ -9,8 +9,8 @@ namespace TBD
   /// <summary>
   /// Controls the Player's avatar in game utilizing the Physics engine to handle movement.
   /// </summary>
-  [RequireComponent(typeof(Collider2D))]
   [RequireComponent(typeof(Rigidbody2D))]
+  [RequireComponent(typeof(Animator))]
   public class PlayerController : MonoBehaviour, IEventObserver
   {
     /// <summary>
@@ -31,6 +31,7 @@ namespace TBD
 
     private TransformData _resetPosition;
     private Rigidbody2D _rigidBody;
+    private Animator _anim;
     private float _screenTop;
     private float _screenBottom;
     private bool _gameRunning;
@@ -49,6 +50,7 @@ namespace TBD
 
       _resetPosition = transform.GetData();
       _rigidBody = GetComponent<Rigidbody2D>();
+      _anim = GetComponent<Animator>();
 
       _rigidBody.isKinematic = true;
       _gameRunning = false;
@@ -77,6 +79,11 @@ namespace TBD
       {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+          AppHub.soundManager.PlaySoundOnLayer("Flap", false, SoundLayers.SFX);
+
+          //For projects with more animations these should be hashed for performance
+          _anim.SetTrigger("flap");
+
           //Clear velocity and bounce upwards
           _rigidBody.velocity = Vector2.zero;
           _rigidBody.AddForce(new Vector2(0, 500), ForceMode2D.Force);
