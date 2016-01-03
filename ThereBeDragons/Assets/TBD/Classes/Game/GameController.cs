@@ -108,7 +108,6 @@ namespace TBD
           _attempt++;
           _startTime = Time.time;
           _gameRunning = true;
-          GAME_SPEED = START_GAME_SPEED;
 
           if (_turrets.Count != 0)
           {
@@ -125,6 +124,14 @@ namespace TBD
           _gameRunning = false;
           AppHub.soundManager.PlaySoundOnLayer("GameOver", true, SoundLayers.Music);
           AppHub.viewManager.AddView(View.GameOver, _uiData);
+          break;
+
+        case GameEvent.Restart:
+          StopCoroutine(_turretSpawner);
+          GAME_SPEED = START_GAME_SPEED;
+          _gameRunning = false;
+          AppHub.soundManager.PlaySoundOnLayer("MainMenu", true, SoundLayers.Music);
+          AppHub.viewManager.AddView(View.Start);
           break;
       }
     }

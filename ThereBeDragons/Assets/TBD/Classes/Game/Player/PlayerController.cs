@@ -149,6 +149,8 @@ namespace TBD
           _rigidBody.AddForce(new Vector2(0, 500), ForceMode2D.Force);
           _rotationVelocity = 0f;
           _positionVelocity = 0f;
+          _gameRunning = false;
+          _rigidBody.isKinematic = true;
           break;
       }
     }

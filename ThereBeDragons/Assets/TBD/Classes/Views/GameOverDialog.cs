@@ -63,7 +63,6 @@ namespace TBD.Views
     public void UI_OnReplayClicked()
     {
       AppHub.eventManager.Dispatch(GameEvent.Restart);
-      AppHub.viewManager.AddView(View.Start);
       AppHub.viewManager.RemoveView(View.GameOver);
     }
 
