@@ -32,7 +32,7 @@ namespace TBD
     private TransformData _resetPosition;
     private Rigidbody2D _rigidBody;
     private Animator _anim;
-    private float _screenTop;
+    //private float _screenTop;
     private float _screenBottom;
     private bool _gameRunning;
 
@@ -161,7 +161,7 @@ namespace TBD
     /// <remarks>This exists so that if we decide to add character selection later it just works.</remarks>
     public void SetCameraExtents(Camera camera)
     {
-      _screenTop = camera.transform.position.y + camera.orthographicSize;
+      //_screenTop = camera.transform.position.y + camera.orthographicSize;
       _screenBottom = camera.transform.position.y - camera.orthographicSize;
     }
   }
