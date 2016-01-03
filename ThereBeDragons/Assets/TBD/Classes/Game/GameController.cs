@@ -154,7 +154,7 @@ namespace TBD
     /// </summary>
     private void SpawnTurret()
     {
-      BaseTurret turret = GameObject.Instantiate<BaseTurret>(_turrets[Random.Range(0, _turrets.Count - 1)]);
+      BaseTurret turret = GameObject.Instantiate<BaseTurret>(_turrets[Random.Range(0, _turrets.Count)]);
       turret.Init(_minTurretSpawnY, _maxTurretSpawnY, _minCamFrameX, _maxCamFrameX, _playerAvatar);
 
       if ((_flipNextTurret == true && _prevTurret != null && _prevTurret.orientation == BaseTurret.Orientation.Natural))

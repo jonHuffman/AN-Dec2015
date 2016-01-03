@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace TBD
 {
-  [RequireComponent(typeof(Collider2D))]
   public class BaseTurret : MonoBehaviour, IEventObserver
   {
     //Distance per second
@@ -43,7 +42,7 @@ namespace TBD
         //Bounds is not nullable so we will check on the size
         if (_colliderBounds.size == Vector3.zero)
         {
-          Collider2D[] colliders = GetComponents<Collider2D>();
+          Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
           _colliderBounds = colliders[0].bounds;
 
           for (int i = 1; i < colliders.Length; i++)
