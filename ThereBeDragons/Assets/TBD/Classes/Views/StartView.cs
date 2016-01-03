@@ -23,7 +23,7 @@ namespace TBD.Views
 
     void Update()
     {
-      if (Input.GetKeyDown(KeyCode.Space) && _gameStarted == false)
+      if ((Input.GetKeyDown(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)) && _gameStarted == false)
       {
         _gameStarted = true;
         AppHub.viewManager.AddView(View.UI);

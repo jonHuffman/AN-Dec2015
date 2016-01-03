@@ -73,11 +73,10 @@ namespace TBD
 
     void LateUpdate()
     {
-
       //Only update the character if the game has been started and control has been handed back to the physics system
       if (_rigidBody.isKinematic == false)
       {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
           AppHub.soundManager.PlaySoundOnLayer("Flap", false, SoundLayers.SFX);
 
