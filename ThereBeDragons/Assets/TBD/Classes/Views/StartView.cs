@@ -1,5 +1,6 @@
 ﻿using Core;
 using Core.Module.ViewManagerSystem;
+using Core.Utils;
 using DG.Tweening;
 using TBD.Events;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace TBD.Views
 
     private CanvasGroup _group;
     private bool _gameStarted = false;
+    private int _tweenID;
 
     void Awake()
     {
@@ -42,6 +44,11 @@ namespace TBD.Views
       }
     }
 
+    void OnDestroy()
+    {
+      DOTween.Kill(_tweenID);
+    }
+
     /// <summary>
     /// Fades the elemtns in this View to an alpha of 0 and then notifies the View Manager that the transition is complete
     /// </summary>
@@ -56,7 +63,8 @@ namespace TBD.Views
     /// </summary>
     private void PulseTextIn()
     {
-      _actionText.transform.DOScale(1.1f, 1f).SetEase(Ease.InOutSine).OnComplete(PulseTextOut);
+      _tweenID = Helpers.UniqueID;
+      _actionText.transform.DOScale(1.1f, 1f).SetId(_tweenID).SetEase(Ease.InOutSine).OnComplete(PulseTextOut);
     }
 
     /// <summary>
@@ -64,7 +72,8 @@ namespace TBD.Views
     /// </summary>
     private void PulseTextOut()
     {
-      _actionText.transform.DOScale(1f, 1f).SetEase(Ease.InOutSine).OnComplete(PulseTextIn);
+      _tweenID = Helpers.UniqueID;
+      _actionText.transform.DOScale(1f, 1f).SetId(_tweenID).SetEase(Ease.InOutSine).OnComplete(PulseTextIn);
     }
   }
 }
