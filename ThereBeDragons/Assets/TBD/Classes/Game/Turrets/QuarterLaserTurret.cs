@@ -27,14 +27,13 @@ namespace TBD
     private bool _firing = false;
     private float _guideDefaultWidth;
     private int _lockOnTweenID;
-    private bool _running;
 
     #region Unity
 
-    void Awake()
+    protected override void Awake()
     {
       _guide.enabled = false;
-      _running = true;
+      base.Awake();
     }
 
     protected override void Update()
@@ -79,17 +78,7 @@ namespace TBD
       base.Update();
     }
     #endregion
-
-    public override void OnNotify(System.IComparable gameEvent, object data)
-    {
-      if ((GameEvent)gameEvent == GameEvent.GameOver)
-      {
-        _running = false;
-      }
-
-      base.OnNotify(gameEvent, data);
-    }
-
+    
     /// <summary>
     /// Starts the "lock-on" step in the firing procedure. This exists to warn players that they are in range.
     /// </summary>
@@ -116,7 +105,7 @@ namespace TBD
       blast.transform.position = new Vector3(_gunHinge.transform.position.x, _gunHinge.transform.position.y, blast.transform.position.z);
       blast.transform.rotation = _gunHinge.transform.rotation;
 
-      AppHub.soundManager.PlaySoundOnLayer("LaserBlast", false, SoundLayers.SFX);
+      AppHub.soundManager.PlaySoundOnLayer(AudioID.LaserBlast, false, SoundLayers.SFX);
 
       //Multiply by 10 to guarantee it leave the screen
       Vector2 target = (_player.transform.position - _gunHinge.transform.position) * 10;

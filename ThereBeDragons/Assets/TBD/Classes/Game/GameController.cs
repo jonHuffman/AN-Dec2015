@@ -115,14 +115,14 @@ namespace TBD
             StartCoroutine(_turretSpawner);
           }
 
-          AppHub.soundManager.PlaySoundOnLayer("BackgroundTrack", false, SoundLayers.Music);
+          AppHub.soundManager.PlaySoundOnLayer(AudioID.BackgroundTrack, false, SoundLayers.Music);
           break;
 
         case GameEvent.GameOver:
           StopCoroutine(_turretSpawner);
           GAME_SPEED = 0f;
           _gameRunning = false;
-          AppHub.soundManager.PlaySoundOnLayer("GameOver", true, SoundLayers.Music);
+          AppHub.soundManager.PlaySoundOnLayer(AudioID.GameOver, true, SoundLayers.Music);
           AppHub.viewManager.AddView(View.GameOver, _uiData);
           break;
 
@@ -130,7 +130,7 @@ namespace TBD
           StopCoroutine(_turretSpawner);
           GAME_SPEED = START_GAME_SPEED;
           _gameRunning = false;
-          AppHub.soundManager.PlaySoundOnLayer("MainMenu", true, SoundLayers.Music);
+          AppHub.soundManager.PlaySoundOnLayer(AudioID.MainMenu, true, SoundLayers.Music);
           AppHub.viewManager.AddView(View.Start);
           break;
       }

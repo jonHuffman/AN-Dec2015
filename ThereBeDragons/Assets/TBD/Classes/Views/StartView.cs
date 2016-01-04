@@ -3,6 +3,7 @@ using Core.Module.ViewManagerSystem;
 using DG.Tweening;
 using TBD.Events;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TBD.Views
 {
@@ -11,6 +12,8 @@ namespace TBD.Views
   {
     [SerializeField]
     private float _fadeOutDuration = 0.5f;
+    [SerializeField]
+    private Text _actionText;
 
     private CanvasGroup _group;
     private bool _gameStarted = false;
@@ -18,7 +21,15 @@ namespace TBD.Views
     void Awake()
     {
       _group = GetComponent<CanvasGroup>();
-      AppHub.soundManager.PlaySoundOnLayer("MainMenu", true, SoundLayers.Music);
+      AppHub.soundManager.PlaySoundOnLayer(AudioID.MainMenu, true, SoundLayers.Music);
+
+#if UNITY_IPHONE || UNITY_ANDROID
+      _actionText.text = "TAP to start!";
+#else
+      _actionText.text = "Press SPACE to start!";
+#endif
+
+      PulseTextIn();
     }
 
     void Update()
@@ -38,6 +49,22 @@ namespace TBD.Views
     public override void TransitionOut(ViewTransitionComplete onOutComplete)
     {
       _group.DOFade(0f, _fadeOutDuration).OnComplete(() => { onOutComplete(); });
+    }
+
+    /// <summary>
+    /// Scales the action text up
+    /// </summary>
+    private void PulseTextIn()
+    {
+      _actionText.transform.DOScale(1.1f, 1f).SetEase(Ease.InOutSine).OnComplete(PulseTextOut);
+    }
+
+    /// <summary>
+    /// Scales the action text down
+    /// </summary>
+    private void PulseTextOut()
+    {
+      _actionText.transform.DOScale(1f, 1f).SetEase(Ease.InOutSine).OnComplete(PulseTextIn);
     }
   }
 }

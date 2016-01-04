@@ -78,7 +78,7 @@ namespace TBD
       {
         if (Input.GetKeyDown(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
-          AppHub.soundManager.PlaySoundOnLayer("Flap", false, SoundLayers.SFX);
+          AppHub.soundManager.PlaySoundOnLayer(AudioID.Flap, false, SoundLayers.SFX);
 
           //For projects with more animations these should be hashed for performance
           _anim.SetTrigger("flap");

@@ -25,10 +25,12 @@ namespace TBD
     protected Vector2 _rangeCenter = Vector2.zero;
 
     protected PlayerController _player;
+    protected Orientation _orientation = Orientation.Natural;
+    protected bool _running;
+
     //The point along the X axis that the turret should destroy itself at
     private float _turretKillPoint;
     private Bounds _colliderBounds;
-    protected Orientation _orientation = Orientation.Natural;
 
     #region Properties
 
@@ -69,6 +71,11 @@ namespace TBD
 
     #region Unity
 
+    protected virtual void Awake()
+    {
+      _running = true;
+    }
+
     protected virtual void Update()
     {
       if (transform.position.x < _turretKillPoint)
@@ -100,11 +107,17 @@ namespace TBD
     
     public virtual void OnNotify(System.IComparable gameEvent, object data)
     {
-      if((GameEvent)gameEvent == GameEvent.Restart)
+      switch((GameEvent)gameEvent)
       {
-        //Unregister immediately so that other events do get recieved by this during the destroy process
-        AppHub.eventManager.Unregister(this);
-        Destroy(gameObject);
+        case GameEvent.Restart:
+          //Unregister immediately so that other events do get recieved by this during the destroy process
+          AppHub.eventManager.Unregister(this);
+          Destroy(gameObject);
+          break;
+
+        case GameEvent.GameOver:
+          _running = false;
+          break;
       }
     }
     #endregion
